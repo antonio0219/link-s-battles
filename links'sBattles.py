@@ -63,7 +63,7 @@ menuMusic()
 while True:
     if menu:
         surface.blit(startGame, (173,0))
-    elif modeSelector >= 0 and modeSelector <= 4: 
+    elif modeSelector >= 0 and modeSelector <= 3: 
         if modeSelector == 0:
             selector = pygame.image.load("assets/titleScreens/selector0.png")
         elif modeSelector == 1:
@@ -105,19 +105,6 @@ while True:
                     selector = pygame.image.load("assets/titleScreens/selector3(1).png")
                     princess = 1
                     currentMoment = GAME_TIME.get_ticks()
-        elif modeSelector == 4:
-            if princess == 0:
-                selector = pygame.image.load("assets/titleScreens/selector4(0).png")
-                princess = 2
-            elif GAME_TIME.get_ticks() - currentMoment >= 500:
-                if princess == 1:
-                    selector = pygame.image.load("assets/titleScreens/selector4(0).png")
-                    princess = 2
-                    currentMoment = GAME_TIME.get_ticks()
-                elif princess == 2:
-                    selector = pygame.image.load("assets/titleScreens/selector4(1).png")
-                    princess = 1
-                    currentMoment = GAME_TIME.get_ticks()
         surface.blit(selector, (173,0))
     if combat:
         if roundFinished:
@@ -141,7 +128,7 @@ while True:
                     menu = False
                     modeSelector = 0
             if modeSelector >= 0 and modeSelector <= 4:
-                if event.key == pygame.K_DOWN and modeSelector is not 4:
+                if event.key == pygame.K_DOWN and modeSelector is not 3:
                     modeSelector += 1
                     princess = 0
                     currentMoment = GAME_TIME.get_ticks()
