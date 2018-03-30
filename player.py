@@ -282,24 +282,24 @@ class link():
             self.health += 4
             self.numPotions -= 1
     def drawSword(self, surface):
-        if self.toAtack == True and self.direction == 'right' and self.inventory == 'False' and self.moving or self.moving == False and self.direction == 'right': #si está mirando a la derecha
+        if self.toAtack == True and self.direction == 'right' and self.inventory == 'False' and self.moving or self.moving == False and self.direction == 'right' and self.imDead() == False: #si está mirando a la derecha
             self.swordY = self.y + int((self.height/16) * 6)
             self.swordX = (self.x + self.width) - int((self.width/16) * 5)
             surface.blit(self.swordImageRight, (self.swordX, self.swordY))
-        if self.toAtack == True and self.direction == 'left' and self.inventory == 'False' and self.moving or self.moving == False and self.direction == 'left': #si está mirando a la izquierda
+        if self.toAtack == True and self.direction == 'left' and self.inventory == 'False' and self.moving or self.moving == False and self.direction == 'left' and self.imDead() == False: #si está mirando a la izquierda
             self.swordY = self.y + int((self.height/16) * 6)
             self.swordX = (self.x - self.width) - int((self.width/16) * -5)
             surface.blit(self.swordImageLeft, (self.swordX, self.swordY))
-        if self.toAtack == True and self.direction == 'down' and self.inventory == 'False' and self.moving or self.moving == False and self.direction == 'down': #si está mirando a abajo
+        if self.toAtack == True and self.direction == 'down' and self.inventory == 'False' and self.moving or self.moving == False and self.direction == 'down' and self.imDead() == False: #si está mirando a abajo
             self.swordY = self.y + self.height - int((self.height/16) * 5)
             self.swordX = self.x + int((self.width/16) * 5)
             surface.blit(self.swordImageDown, (self.swordX, self.swordY))
-        if self.toAtack == True and self.direction == 'up' and self.inventory == 'False' and self.moving or self.moving == False and self.direction == 'up': #si está mirando arriba
+        if self.toAtack == True and self.direction == 'up' and self.inventory == 'False' and self.moving or self.moving == False and self.direction == 'up' and self.imDead() == False: #si está mirando arriba 
             self.swordY = self.y + self.height - int((self.height/16) * 28)
             self.swordX = self.x + int((self.width/16) * 3)
             surface.blit(self.swordImageUp, (self.swordX, self.swordY))
     def drawPlayer(self, surface, GAME_TIME, roundFinished):
-        if self.inventory == 'True' and self.imDead() == False:
+        if self.inventory == 'True':
             surface.blit(self.items[self.itemSelected], (self.x, self.y - 30))
         if self.existArrow:
             if self.arrowDirection == 'right':
@@ -331,7 +331,7 @@ class link():
                 self.lastImage = self.image_right[self.step]
             else: #este else se encarga de ponerle al jugador el último dizfraz que tenía
                 surface.blit(self.lastImage, (self.x, self.y))
-        elif self.inventory == 'False':
+        elif self.inventory == 'False' and self.imDead() == False:
             if self.direction == 'right':
                 surface.blit(self.atRight, (self.x, self.y))
                 if roundFinished:

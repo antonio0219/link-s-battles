@@ -14,7 +14,7 @@ princess = 0 #para cambiar la postura de la princesa del menu
 currentMoment = 0
 roundFinished = False
 
-#create lists of players
+#listas de jugadores
 playersWaiting = []
 playersFighting = []
 
@@ -114,11 +114,12 @@ while True:
         for player in playersFighting:
             player.atackMoment(GAME_TIME)
             player.drawLives(surface)
-            player.drawSword(surface)
             player.move(GAME_TIME)
+            player.drawSword(surface)
             player.drawPlayer(surface, GAME_TIME, roundFinished)
             if player.imDead():
                 roundFinished = True
+                player.stop('True')
             if roundFinished == True:
                 player.stop('True')
     for event in GAME_EVENTS.get():
