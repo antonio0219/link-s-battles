@@ -217,8 +217,26 @@ class link():
                     self.modifyLive(-2)
     def receiveArrow(self, otherPlayer):
         if otherPlayer.existArrow :
-            if otherPlayer.arrowDirection == 'right' and self.inside( (otherPlayer.arrowPos , otherPlayer.arrowSize) , ((self.x, self.y),(self.width, self.height))) :
+            if otherPlayer.arrowDirection == 'right' and self.inside( (otherPlayer.arrowPos , otherPlayer.arrowSize) , ((self.x, self.y),(self.width, self.height))):
                 if self.direction == 'left' and self.toAtack == False:
+                    self.shieldDeflecting.play()
+                else :
+                    self.modifyLive(-2)
+                otherPlayer.deleteArrow()
+            if otherPlayer.arrowDirection == 'left' and self.inside( (otherPlayer.arrowPos , otherPlayer.arrowSize) , ((self.x, self.y),(self.width, self.height))):
+                if self.direction == 'right' and self.toAtack == False:
+                    self.shieldDeflecting.play()
+                else :
+                    self.modifyLive(-2)
+                otherPlayer.deleteArrow()
+            if otherPlayer.arrowDirection == 'up' and self.inside( (otherPlayer.arrowPos , (otherPlayer.arrowSize[1], otherPlayer.arrowSize[0])) , ((self.x, self.y),(self.width, self.height))):
+                if self.direction == 'down' and self.toAtack == False:
+                    self.shieldDeflecting.play()
+                else :
+                    self.modifyLive(-2)
+                otherPlayer.deleteArrow()
+            if otherPlayer.arrowDirection == 'down' and self.inside( (otherPlayer.arrowPos , (otherPlayer.arrowSize[1], otherPlayer.arrowSize[0])) , ((self.x, self.y),(self.width, self.height))):
+                if self.direction == 'up' and self.toAtack == False:
                     self.shieldDeflecting.play()
                 else :
                     self.modifyLive(-2)
