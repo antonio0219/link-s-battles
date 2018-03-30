@@ -111,12 +111,17 @@ while True:
             surface.fill((0,0,0))
         else:
             surface.blit(battleField, (0,0))
-        for player in playersFighting:
+        for idx, player in enumerate(playersFighting):
             player.atackMoment(GAME_TIME)
             player.drawLives(surface)
             player.move(GAME_TIME)
             player.drawSword(surface)
             player.drawPlayer(surface, GAME_TIME, roundFinished)
+            if idx == 1: 
+                otherPlayerIndex = 0
+            else :
+                otherPlayerIndex = 1
+            player.receiveArrow(playersFighting[otherPlayerIndex])
             if player.imDead():
                 roundFinished = True
                 player.stop('True')
@@ -166,7 +171,7 @@ while True:
                 if event.key == pygame.K_e and playersFighting[0].getInventory():
                     playersFighting[0].selectItem('True', 1)
                 if event.key == pygame.K_e and playersFighting[0].getInventory() == False:
-                    playersFighting[0].weapon(surface)
+                    playersFighting[0].weapon(surface, GAME_TIME)
                 if event.key == pygame.K_w and playersFighting[0].getInventory():
                     playersFighting[0].selectItem('True', -1)
                 if event.key == pygame.K_w and playersFighting[0].getInventory() == False:
@@ -186,7 +191,7 @@ while True:
                 if event.key == pygame.K_o and playersFighting[1].getInventory():
                     playersFighting[1].selectItem('True', 1)
                 if event.key == pygame.K_o and playersFighting[1].getInventory() == False:
-                    playersFighting[1].weapon(surface)
+                    playersFighting[1].weapon(surface, GAME_TIME)
                 if event.key == pygame.K_i and playersFighting[1].getInventory():
                     playersFighting[1].selectItem('True', -1)
                 if event.key == pygame.K_i and playersFighting[1].getInventory() == False:

@@ -10,7 +10,8 @@ class link():
         self.maxHearts = 5 #estos son los corazones maximos que se pueden tener
         self.posHearts = [(100, 25), (800, 750)] #una lista con las posiciones x e y de los corazones dependiendo del spawn que te haya tocado
         self.arrowPos = [self.x, self.y] #lista con las posiciones x e y de la flecha
-        self.arrowDirection = 'Right'
+        self.arrowSize = (80, 25)
+        self.arrowDirection = 'right'
         self.existArrow = False
         self.spaceHearts = 40 #esta variable indica el espacio que se va a guardar entre la posición en X de un corazón y la posX del siguiente
         self.color = random.randint(1,3) #esta variable puede ser green(1), red(2) o white(3), de esto dependerá que el jugador tenga un color u otro
@@ -103,6 +104,7 @@ class link():
         self.initTime = 0
         self.atackTime = 0
         self.step = 0
+        self.arrowTime = 0
     
     def setInitTime(self, GAME_TIME): #con esta función se almacena el instante justo cuando se crea un objeto jugador
         self.initTime = GAME_TIME.get_ticks()
@@ -213,6 +215,21 @@ class link():
                     self.shieldDeflecting.play()
                 else:
                     self.modifyLive(-2)
+    def receiveArrow(self, otherPlayer):
+        if otherPlayer.existArrow :
+            if otherPlayer.arrowDirection == 'right' and self.inside( (otherPlayer.arrowPos , otherPlayer.arrowSize) , ((self.x, self.y),(self.width, self.height))) :
+                if self.direction == 'left' and self.toAtack == False:
+                    self.shieldDeflecting.play()
+                else :
+                    self.modifyLive(-2)
+                otherPlayer.deleteArrow()
+
+
+    def deleteArrow(self):
+        self.existArrow = False
+
+
+
     def modifyLive(self, num): #a esta función se le debe pasar como argumento el número de corazones que vas a perder
         if num is 'Full':
             self.health = (self.maxHearts * 2)
@@ -248,10 +265,10 @@ class link():
         for i in range(self.numBottles - self.numPotions): #para dibujar las botellas
             surface.blit(self.emptyBottle, (posx, posy))
             posx += self.spaceHearts
-    def weapon(self, surface):
+    def weapon(self, surface, GAME_TIME):
         #arco
         if self.itemSelected == 1:
-            if self.existArrow == False:
+            if self.existArrow == False and GAME_TIME.get_ticks() - self.arrowTime > 2000:
                 if self.direction == 'right':
                     self.arrowPos = [self.x + 10, (self.y + 10 + self.height / 2 - 25)]
                     self.existArrow = True
@@ -265,6 +282,7 @@ class link():
                     self.arrowPos = [(self.x + self.width / 2 - 10), self.y]
                     self.existArrow = True
                 self.arrowDirection = self.direction
+                self.arrowTime = GAME_TIME.get_ticks()
         #boomerang
         if self.itemSelected == 2:
             print('boomerang 7u7')
