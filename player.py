@@ -66,6 +66,7 @@ class link():
             self.swordImageDown = pygame.image.load("assets/player/green/swordDown.png")
             self.swordImageUp = pygame.image.load("assets/player/green/swordUp.png")
             self.arrow = [pygame.image.load("assets/player/green/arrowRight.png"), pygame.image.load("assets/player/green/arrowLeft.png"), pygame.image.load("assets/player/green/arrowUp.png"), pygame.image.load("assets/player/green/arrowDown.png")]
+            self.boomerang = pygame.image.load("assets/player/green/boomerang.png")
         if self.color == 2:
             self.image_up = [pygame.image.load("assets/player/red/linkWalkingUp.png")]
             self.image_down = [pygame.image.load("assets/player/red/linkWalkingDown1.png"),pygame.image.load("assets/player/red/linkWalkingDown2.png")]
@@ -82,6 +83,7 @@ class link():
             self.swordImageDown = pygame.image.load("assets/player/red/swordDown.png")
             self.swordImageUp = pygame.image.load("assets/player/red/swordUp.png")
             self.arrow = [pygame.image.load("assets/player/red/arrowRight.png"), pygame.image.load("assets/player/red/arrowLeft.png"), pygame.image.load("assets/player/red/arrowUp.png"), pygame.image.load("assets/player/red/arrowDown.png")]
+            self.boomerang = pygame.image.load("assets/player/red/boomerang.png")
         if self.color == 3:
             self.image_up = [pygame.image.load("assets/player/white/linkWalkingUp.png")]
             self.image_down = [pygame.image.load("assets/player/white/linkWalkingDown1.png"),pygame.image.load("assets/player/white/linkWalkingDown2.png")]
@@ -98,6 +100,7 @@ class link():
             self.swordImageDown = pygame.image.load("assets/player/white/swordDown.png")
             self.swordImageUp = pygame.image.load("assets/player/white/swordUp.png")
             self.arrow = [pygame.image.load("assets/player/white/arrowRight.png"), pygame.image.load("assets/player/white/arrowLeft.png"), pygame.image.load("assets/player/white/arrowUp.png"), pygame.image.load("assets/player/white/arrowDown.png")]
+            self.boomerang = pygame.image.load("assets/player/white/boomerang.png")
         #items:
         self.items = [pygame.image.load("assets/player/itemSelector/itemSelector0.png"),pygame.image.load("assets/player/itemSelector/itemSelector1.png"),pygame.image.load("assets/player/itemSelector/itemSelector2.png"),pygame.image.load("assets/player/itemSelector/itemSelector3.png"),pygame.image.load("assets/player/itemSelector/itemSelector4.png")]
         self.yourDead = [pygame.image.load("assets/items/normalPlayerDied.png"), pygame.image.load("assets/items/finalPlayerDied.png")]
