@@ -12,7 +12,9 @@ modeSelector = False #si es un número positivo significa que estás eligiendo m
 combat = False #si es True significa que estamos en combate
 princess = 0 #para cambiar la postura de la princesa del menu
 currentMoment = 0
+finalMoment = 0
 roundFinished = False
+triforceWaiting = 0
 
 #listas de jugadores
 playersWaiting = []
@@ -54,6 +56,9 @@ def battleMusicSecondRound():
 def battleMusicFinalRound():
     pygame.mixer.music.load('assets/sounds/music/finalBattle.ogg')
     pygame.mixer.music.play(-1)
+def battleMusicWinner():
+    pygame.mixer.music.load('assets/sounds/music/finalBattle.ogg')
+    pygame.mixer.music.play(1)
     
 def quitGame(): #para quitar el juego
     pygame.quit()
@@ -107,7 +112,7 @@ while True:
                     currentMoment = GAME_TIME.get_ticks()
         surface.blit(selector, (173,0))
     if combat:
-        if roundFinished:
+        if roundFinished or triforceWaiting:
             surface.fill((0,0,0))
         else:
             surface.blit(battleField, (0,0))
@@ -119,14 +124,21 @@ while True:
             player.drawPlayer(surface, GAME_TIME, roundFinished)
             if idx == 1: 
                 otherPlayerIndex = 0
-            else :
+            else:
                 otherPlayerIndex = 1
             player.receiveArrow(playersFighting[otherPlayerIndex])
             if player.imDead():
                 roundFinished = True
                 player.stop('True')
-            if roundFinished == True:
+                if triforceWaiting == 0:
+                    triforceWaiting = 1
+            if roundFinished == True and player.imDead() == False:
                 player.stop('True')
+                if triforceWaiting == 1 and roundFinished:
+                    finalMoment = GAME_TIME.get_ticks()
+                    triforceWaiting = 2
+                if GAME_TIME.get_ticks() - finalMoment >= 5000:
+                    player.stop('False')
     for event in GAME_EVENTS.get():
         if event.type == pygame.KEYDOWN:
             if menu:

@@ -100,6 +100,7 @@ class link():
             self.arrow = [pygame.image.load("assets/player/white/arrowRight.png"), pygame.image.load("assets/player/white/arrowLeft.png"), pygame.image.load("assets/player/white/arrowUp.png"), pygame.image.load("assets/player/white/arrowDown.png")]
         #items:
         self.items = [pygame.image.load("assets/player/itemSelector/itemSelector0.png"),pygame.image.load("assets/player/itemSelector/itemSelector1.png"),pygame.image.load("assets/player/itemSelector/itemSelector2.png"),pygame.image.load("assets/player/itemSelector/itemSelector3.png"),pygame.image.load("assets/player/itemSelector/itemSelector4.png")]
+        self.yourDead = [pygame.image.load("assets/items/normalPlayerDied.png"), pygame.image.load("assets/items/finalPlayerDied.png")]
         
         self.initTime = 0
         self.atackTime = 0
@@ -241,13 +242,8 @@ class link():
                 else :
                     self.modifyLive(-2)
                 otherPlayer.deleteArrow()
-
-
     def deleteArrow(self):
         self.existArrow = False
-
-
-
     def modifyLive(self, num): #a esta función se le debe pasar como argumento el número de corazones que vas a perder
         if num is 'Full':
             self.health = (self.maxHearts * 2)
@@ -263,7 +259,7 @@ class link():
         else:
             return False
     def drawLives(self, surface): #con esta función se dibujarán las vidas
-        numberFullHearts = self.health//2 #si pones dos / haces una división que no coja decimales (se queda con un resto
+        numberFullHearts = self.health//2 #si pones dos / haces una división que no coja decimales (se queda con un resto)
         numberHalfHearts = self.health%2 #si pones % puedes pedir el resto de una división
         numberEmptyHearts = self.maxHearts - numberFullHearts - numberHalfHearts
         posx = self.posHearts[self.spawn][0]
@@ -384,5 +380,9 @@ class link():
                 surface.blit(self.atUp, (self.x, self.y))
                 if roundFinished:
                     self.lastImage = self.atUp
-        elif self.inventory == 'True' or self.moving == False: #si el inventario está abierto no debe cambiar de dizfraz
+        elif self.inventory == 'True': #si el inventario está abierto no debe cambiar de dizfraz
             surface.blit(self.lastImage, (self.x, self.y))
+        elif self.imDead() and roundFinished:
+            surface.blit(self.yourDead[0], (self.x + 25, self.y + 25))
+            self.height -= 50
+            self.width -= 50
